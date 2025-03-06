@@ -39,6 +39,30 @@ return new class extends Migration
                     LeverancierNaam DESC;
             END;
         ');
+
+          DB::unprepared('
+            DROP PROCEDURE IF EXISTS spGetProductAllergenen;
+            CREATE PROCEDURE spGetProductAllergenen(
+                IN productId INT
+            )
+            BEGIN
+                SELECT 
+                    P.Naam AS ProductNaam,
+                    P.Barcode,
+                    A.Naam AS AllergeenNaam
+                FROM 
+                    Product P
+                LEFT JOIN 
+                    ProductPerAllergeen PPA ON P.Id = PPA.ProductId
+                LEFT JOIN 
+                    Allergeen A ON PPA.AllergeenId = A.Id
+                WHERE 
+                    P.IsActief = 1
+                    AND P.Id = productId
+                ORDER BY 
+                    P.Naam ASC;
+            END;
+        ');
     }
 
     /**
@@ -47,5 +71,6 @@ return new class extends Migration
     public function down(): void
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetMagazijnInfo');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetProductAllergenen');
     }
 };
