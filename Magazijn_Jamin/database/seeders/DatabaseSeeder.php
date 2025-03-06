@@ -14,6 +14,7 @@ use App\Models\Contact;
 use App\Models\ProductPerLeverancier;
 use App\Models\Allergeen;
 use App\Models\ProductPerAllergeen;
+use App\Models\ProductEinddatumLevering;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,5 +36,6 @@ class DatabaseSeeder extends Seeder
         Magazijn::factory()->count(14)->create();
         ProductPerLeverancier::factory()->count(17)->create();
         ProductPerAllergeen::factory()->count(13)->create();
+        ProductEinddatumLevering::factory()->count(8)->create();
     }
 }

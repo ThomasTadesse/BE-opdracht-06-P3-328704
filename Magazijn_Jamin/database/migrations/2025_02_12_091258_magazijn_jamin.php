@@ -128,5 +128,6 @@ return new class extends Migration
         Schema::dropIfExists('Contact');
         Schema::dropIfExists('Magazijn');
         Schema::dropIfExists('Product');
+        Schema::dropIfExists('ProductEinddatumLevering');
     }
 };
