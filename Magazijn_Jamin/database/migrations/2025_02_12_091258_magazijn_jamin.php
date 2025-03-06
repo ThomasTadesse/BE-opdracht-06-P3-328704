@@ -103,7 +103,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        
+        Schema::create('ProductEinddatumLevering', function (Blueprint $table) {
+            $table->mediumIncrements('Id');
+            $table->mediumInteger('ProductId')->unsigned();
+            $table->date('EinddatumLevering');
+            $table->boolean('IsActief')->default(true);
+            $table->string('Opmerkingen', 255)->nullable();
+            $table->dateTime('DatumAangemaakt', 6);
+            $table->dateTime('DatumGewijzigd', 6);
+            $table->foreign('ProductId')->references('Id')->on('Product');
+            $table->timestamps();
+        });
     }
 
     /**
