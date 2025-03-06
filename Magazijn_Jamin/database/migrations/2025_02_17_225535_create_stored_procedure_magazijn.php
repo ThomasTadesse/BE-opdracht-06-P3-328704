@@ -1,0 +1,51 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS spGetMagazijnInfo;
+            CREATE PROCEDURE spGetMagazijnInfo()
+            BEGIN
+                SELECT 
+                    PRCT.id                   AS Id,
+                    PRCT.Naam                 AS ProductNaam,
+                    LVR.Naam                  AS LeverancierNaam,
+                    LVR.Contactpersoon        AS Contactpersoon,
+                    MGZN.AantalAanwezig       AS AantalAanwezig,
+                    PRDLV.DatumLevering       AS DatumLevering,
+                    PREDL.EinddatumLevering   AS EinddatumLevering
+                FROM 
+                    Product PRCT
+                LEFT JOIN 
+                    Magazijn MGZN ON PRCT.Id = MGZN.ProductId
+                LEFT JOIN
+                    ProductPerLeverancier PRDLV ON PRCT.Id = PRDLV.ProductId
+                LEFT JOIN
+                    Leverancier LVR ON PRDLV.LeverancierId = LVR.Id
+                LEFT JOIN
+                    ProductEinddatumLevering PREDL ON PRCT.Id = PREDL.ProductId
+                WHERE 
+                    PRCT.IsActief = 1
+                ORDER BY 
+                    LeverancierNaam DESC;
+            END;
+        ');
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetMagazijnInfo');
+    }
+};
