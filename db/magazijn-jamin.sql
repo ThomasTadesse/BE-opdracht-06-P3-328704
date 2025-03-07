@@ -404,6 +404,28 @@ VALUES
 
 
 
+CREATE TABLE ProductEinddatumLevering (
+    Id INT NOT NULL AUTO_INCREMENT,
+    ProductId INT NOT NULL,
+    EinddatumLevering DATE NOT NULL
+    ,IsActief                       BIT                               NOT NULL      DEFAULT 1
+    ,Opmerkingen                    VARCHAR(255)                          NULL      DEFAULT NULL
+    ,DatumAangemaakt                Datetime(6)                       NOT NULL
+    ,DatumGewijzigd                 Datetime(6)                       NOT NULL
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+);
+
+INSERT INTO ProductEinddatumLevering (Id, ProductId, EinddatumLevering) VALUES
+(1, 1, '2024-06-01'),
+(2, 2, '2024-05-22'),
+(3, 3, '2024-05-30'),
+(4, 4, '2024-05-12'),
+(5, 7, '2024-05-27'),
+(6, 10, '2024-05-03'),
+(7, 11, '2024-02-09'),
+(8, 14, '2024-01-01');
+
 
 COMMIT;
 
