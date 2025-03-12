@@ -20,6 +20,7 @@ return new class extends Migration
                     PRCT.Naam                 AS ProductNaam,
                     LVR.Naam                  AS LeverancierNaam,
                     LVR.Contactpersoon        AS Contactpersoon,
+                    CONT.Stad                  AS Stad,
                     MGZN.AantalAanwezig       AS AantalAanwezig,
                     PRDLV.DatumLevering       AS DatumLevering,
                     PREDL.EinddatumLevering   AS EinddatumLevering
@@ -32,6 +33,8 @@ return new class extends Migration
                 LEFT JOIN
                     Leverancier LVR ON PRDLV.LeverancierId = LVR.Id
                 LEFT JOIN
+                    Contact CONT ON LVR.ContactId = CONT.Id
+                LEFT JOIN
                     ProductEinddatumLevering PREDL ON PRCT.Id = PREDL.ProductId
                 WHERE 
                     PRCT.IsActief = 1
@@ -40,7 +43,7 @@ return new class extends Migration
             END;
         ');
 
-          DB::unprepared('
+        DB::unprepared('
             DROP PROCEDURE IF EXISTS spGetProductAllergenen;
             CREATE PROCEDURE spGetProductAllergenen(
                 IN productId INT
