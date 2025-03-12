@@ -14,7 +14,7 @@ USE `magazijn-jamin`;
 -- 01             03-03-2025  Thomas Tadesse    New Stored Procedure  
 -- ********************************************************
 
- 	  DROP PROCEDURE IF EXISTS spGetMagazijnInfo;
+ 	   DROP PROCEDURE IF EXISTS spGetMagazijnInfo;
             CREATE PROCEDURE spGetMagazijnInfo()
             BEGIN
                 SELECT 
@@ -22,6 +22,7 @@ USE `magazijn-jamin`;
                     PRCT.Naam                 AS ProductNaam,
                     LVR.Naam                  AS LeverancierNaam,
                     LVR.Contactpersoon        AS Contactpersoon,
+                    CONT.Stad                  AS Stad,
                     MGZN.AantalAanwezig       AS AantalAanwezig,
                     PRDLV.DatumLevering       AS DatumLevering,
                     PREDL.EinddatumLevering   AS EinddatumLevering
@@ -33,6 +34,8 @@ USE `magazijn-jamin`;
                     ProductPerLeverancier PRDLV ON PRCT.Id = PRDLV.ProductId
                 LEFT JOIN
                     Leverancier LVR ON PRDLV.LeverancierId = LVR.Id
+                LEFT JOIN
+                    Contact CONT ON LVR.ContactId = CONT.Id
                 LEFT JOIN
                     ProductEinddatumLevering PREDL ON PRCT.Id = PREDL.ProductId
                 WHERE 
