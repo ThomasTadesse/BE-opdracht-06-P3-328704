@@ -14,25 +14,15 @@ USE `magazijn-jamin`;
 -- 01             03-03-2025  Thomas Tadesse    New Stored Procedure  
 -- ********************************************************
 
- 	 DROP PROCEDURE IF EXISTS spGetProductAllergenen;
-            CREATE PROCEDURE spGetProductAllergenen(
+DROP PROCEDURE IF EXISTS spDeleteProduct;
+            CREATE PROCEDURE spDeleteProduct(
                 IN productId INT
             )
             BEGIN
-                SELECT 
-                    P.Id AS Id,
-                    P.Naam AS ProductNaam,
-                    P.Barcode,
-                    A.Naam AS AllergeenNaam
-                FROM 
-                    Product P
-                LEFT JOIN 
-                    ProductPerAllergeen PPA ON P.Id = PPA.ProductId
-                LEFT JOIN 
-                    Allergeen A ON PPA.AllergeenId = A.Id
+                UPDATE 
+                    Product
+                SET 
+                    IsActief = 0
                 WHERE 
-                    P.IsActief = 1
-                    AND P.Id = productId
-                ORDER BY 
-                    P.Naam ASC;
+                    Id = productId;
             END;
