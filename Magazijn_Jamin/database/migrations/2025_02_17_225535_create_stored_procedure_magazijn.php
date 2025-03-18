@@ -73,7 +73,11 @@ return new class extends Migration
                     P.Id AS Id,
                     P.Naam AS ProductNaam,
                     P.Barcode,
-                    A.Naam AS AllergeenNaam
+                    MAX(CASE WHEN A.Naam = "Gluten" THEN 1 ELSE 0 END) AS BevatGluten,
+                    MAX(CASE WHEN A.Naam = "Gelatine" THEN 1 ELSE 0 END) AS BevatGelatine,
+                    MAX(CASE WHEN A.Naam = "AZO-kleurstoffen" THEN 1 ELSE 0 END) AS BevatAZOKleurstoffen,
+                    MAX(CASE WHEN A.Naam = "Soja" THEN 1 ELSE 0 END) AS BevatSoja,
+                    MAX(CASE WHEN A.Naam = "Lactose" THEN 1 ELSE 0 END) AS BevatLactose
                 FROM 
                     Product P
                 LEFT JOIN 
@@ -83,8 +87,8 @@ return new class extends Migration
                 WHERE 
                     P.IsActief = 1
                     AND P.Id = productId
-                ORDER BY 
-                    P.Naam ASC;
+                GROUP BY
+                    P.Id, P.Naam, P.Barcode;
             END;
         ');
     }

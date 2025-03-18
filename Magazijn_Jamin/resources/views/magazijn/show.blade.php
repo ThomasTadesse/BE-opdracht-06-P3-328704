@@ -8,22 +8,21 @@
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6">Product Allergenen Overzicht</h1>
+        <h1 class="text-3xl font-bold mb-6 underline">Product</h1>
         
         @if(count($productInfo) > 0)
             <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 class="text-xl font-semibold mb-4">Product Details</h2>
-                <p class="mb-2"><strong>Product:</strong> {{ $productInfo[0]->ProductNaam }}</p>
+                <p class="mb-2"><strong>Naam Product:</strong> {{ $productInfo[0]->ProductNaam }}</p>
                 <p class="mb-4"><strong>Barcode:</strong> {{ $productInfo[0]->Barcode }}</p>
-
-                <h3 class="text-lg font-semibold mb-3">Allergenen:</h3>
-                <ul class="list-disc pl-5">
-                    @foreach($productInfo as $info)
-                        @if($info->AllergeenNaam)
-                            <li>{{ $info->AllergeenNaam }}</li>
-                        @endif
-                    @endforeach
-                </ul>
+                <div class="mb-4">
+                    <ul class="space-y-2">
+                        <li><strong>Gluten:</strong> {{ $productInfo[0]->BevatGluten ? 'Ja' : 'Nee' }}</li>
+                        <li><strong>Gelatine:</strong> {{ $productInfo[0]->BevatGelatine ? 'Ja' : 'Nee' }}</li>
+                        <li><strong>AZO-kleurstoffen:</strong> {{ $productInfo[0]->BevatAZOKleurstoffen ? 'Ja' : 'Nee' }}</li>
+                        <li><strong>Soja:</strong> {{ $productInfo[0]->BevatSoja ? 'Ja' : 'Nee' }}</li>
+                        <li><strong>Lactose:</strong> {{ $productInfo[0]->BevatLactose ? 'Ja' : 'Nee' }}</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="flex space-x-4">
