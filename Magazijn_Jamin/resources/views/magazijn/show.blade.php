@@ -12,17 +12,38 @@
         
         @if(count($productInfo) > 0)
             <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <p class="mb-2"><strong>Naam Product:</strong> {{ $productInfo[0]->ProductNaam }}</p>
-                <p class="mb-4"><strong>Barcode:</strong> {{ $productInfo[0]->Barcode }}</p>
-                <div class="mb-4">
-                    <ul class="space-y-2">
-                        <li><strong>Gluten:</strong> {{ $productInfo[0]->BevatGluten ? 'Ja' : 'Nee' }}</li>
-                        <li><strong>Gelatine:</strong> {{ $productInfo[0]->BevatGelatine ? 'Ja' : 'Nee' }}</li>
-                        <li><strong>AZO-kleurstoffen:</strong> {{ $productInfo[0]->BevatAZOKleurstoffen ? 'Ja' : 'Nee' }}</li>
-                        <li><strong>Soja:</strong> {{ $productInfo[0]->BevatSoja ? 'Ja' : 'Nee' }}</li>
-                        <li><strong>Lactose:</strong> {{ $productInfo[0]->BevatLactose ? 'Ja' : 'Nee' }}</li>
-                    </ul>
-                </div>
+                <table class="min-w-full">
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">Naam Product:</td>
+                            <td class="py-2">{{ $productInfo[0]->ProductNaam }}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">Barcode:</td>
+                            <td class="py-2">{{ $productInfo[0]->Barcode }}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">Gluten:</td>
+                            <td class="py-2">{{ $productInfo[0]->BevatGluten ? 'Ja' : 'Nee' }}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">Gelatine:</td>
+                            <td class="py-2">{{ $productInfo[0]->BevatGelatine ? 'Ja' : 'Nee' }}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">AZO-kleurstoffen:</td>
+                            <td class="py-2">{{ $productInfo[0]->BevatAZOKleurstoffen ? 'Ja' : 'Nee' }}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">Soja:</td>
+                            <td class="py-2">{{ $productInfo[0]->BevatSoja ? 'Ja' : 'Nee' }}</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-bold">Lactose:</td>
+                            <td class="py-2">{{ $productInfo[0]->BevatLactose ? 'Ja' : 'Nee' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="flex space-x-4">
