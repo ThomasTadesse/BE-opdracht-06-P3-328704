@@ -44,7 +44,7 @@ return new class extends Migration
                     AND (startDate IS NULL OR PREDL.EinddatumLevering >= startDate)
                     AND (endDate IS NULL OR PREDL.EinddatumLevering <= endDate)
                 ORDER BY 
-                    LeverancierNaam DESC;
+                    EinddatumLevering DESC;
             END;
         ');
 
