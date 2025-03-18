@@ -68,7 +68,13 @@
                             <td class="py-3 px-4">{{ $product->ProductNaam }}</td>
                             <td class="py-3 px-4">{{ date('d-m-Y', strtotime($product->EinddatumLevering)) }}</td>
                             <td class="py-3 px-4">
-                                <a href="{{ route('magazijn.destroy', $product->Id) }}" class="py-1 px-2 rounded">❌</a>
+                                <form action="{{ route('magazijn.destroy', $product->Id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="py-1 px-2">
+                                        ❌
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
