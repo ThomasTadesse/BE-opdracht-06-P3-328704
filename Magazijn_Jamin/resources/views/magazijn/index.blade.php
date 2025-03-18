@@ -47,9 +47,10 @@
                     <tr class="bg-gray-400 text-white">
                         <th class="py-3 px-4 text-left">Naam Leverancier</th>
                         <th class="py-3 px-4 text-left">Contactpersoon</th>
+                        <th class="py-3 px-4 text-left">Stad</th>
                         <th class="py-3 px-4 text-left">Productnaam</th>
-                        <th class="py-3 px-4 text-left">Totaal Geleverd</th>
-                        <th class="py-3 px-4 text-left">Specificatie</th>
+                        <th class="py-3 px-4 text-left">Einddatum Levering</th>
+                        <th class="py-3 px-4 text-left">Verwijder</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,8 +58,9 @@
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-3 px-4">{{ $product->LeverancierNaam }}</td>
                             <td class="py-3 px-4">{{ $product->Contactpersoon }}</td>
+                            <td class="py-3 px-4">{{ $product->Stad }}</td>
                             <td class="py-3 px-4">{{ $product->ProductNaam }}</td>
-                            <td class="py-3 px-4">{{ $product->AantalAanwezig }}</td>
+                            <td class="py-3 px-4">{{ date('d-m-Y', strtotime($product->EinddatumLevering)) }}</td>
                             <td class="py-3 px-4">
                                 <a href="{{ route('magazijn.destroy', $product->Id) }}" class="py-1 px-2 rounded">❌</a>
                             </td>
