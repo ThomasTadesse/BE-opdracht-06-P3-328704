@@ -13,6 +13,12 @@
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold underline">Overzicht Producten uit het Assortiment</h1>
             
+            @if(session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
             <form action="{{ route('magazijn.index') }}" method="GET" class="flex space-x-4">
               <!-- Dropdown voor startdatum & einddatum -->
               <div class="flex items-center space-x-4 bg-white p-4 rounded-lg shadow-md">

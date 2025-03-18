@@ -49,6 +49,21 @@ return new class extends Migration
         ');
 
         DB::unprepared('
+            DROP PROCEDURE IF EXISTS spDeleteProduct;
+            CREATE PROCEDURE spDeleteProduct(
+                IN productId INT
+            )
+            BEGIN
+                UPDATE 
+                    Product
+                SET 
+                    IsActief = 0
+                WHERE 
+                    Id = productId;
+            END;
+        ');
+
+        DB::unprepared('
             DROP PROCEDURE IF EXISTS spGetProductAllergenen;
             CREATE PROCEDURE spGetProductAllergenen(
                 IN productId INT
@@ -79,6 +94,7 @@ return new class extends Migration
     public function down(): void
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetMagazijnInfo');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spDeleteProduct');
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetProductAllergenen');
     }
 };

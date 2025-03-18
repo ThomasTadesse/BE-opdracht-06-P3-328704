@@ -143,20 +143,11 @@ class MagazijnController extends Controller
     public function destroy($id)
     {
         try {
-            DB::beginTransaction();
-
-            $magazijn = Magazijn::findOrFail($id);
-            $magazijn->IsActief = false;
-            $magazijn->DatumGewijzigd = now();
-            $magazijn->save();
-
-            DB::commit();
-
-            Log::info('Magazijn item soft deleted with ID: ' . $id);
+            DB::select('CALL spDeleteProduct(?)', [$id]);
+            
             return redirect()->route('magazijn.index')
-                           ->with('success', 'Product succesvol verwijderd uit magazijn');
+                           ->with('success', 'Product is succesvol verwijderd');
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error('Error deleting magazijn item: ' . $e->getMessage());
             return redirect()->back()
                            ->with('error', 'Er is een fout opgetreden bij het verwijderen van het product.');
