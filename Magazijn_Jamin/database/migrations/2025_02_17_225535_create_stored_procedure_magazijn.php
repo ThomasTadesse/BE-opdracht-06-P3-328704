@@ -70,6 +70,7 @@ return new class extends Migration
             )
             BEGIN
                 SELECT 
+                    P.Id AS Id,
                     P.Naam AS ProductNaam,
                     P.Barcode,
                     A.Naam AS AllergeenNaam
