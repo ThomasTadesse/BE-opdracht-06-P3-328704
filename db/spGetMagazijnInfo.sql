@@ -14,15 +14,18 @@ USE `magazijn-jamin`;
 -- 01             03-03-2025  Thomas Tadesse    New Stored Procedure  
 -- ********************************************************
 
- 	   DROP PROCEDURE IF EXISTS spGetMagazijnInfo;
-            CREATE PROCEDURE spGetMagazijnInfo()
+ 	    DROP PROCEDURE IF EXISTS spGetMagazijnInfo;
+            CREATE PROCEDURE spGetMagazijnInfo(
+                IN startDate DATE,
+                IN endDate DATE
+            )
             BEGIN
                 SELECT 
                     PRCT.id                   AS Id,
                     PRCT.Naam                 AS ProductNaam,
                     LVR.Naam                  AS LeverancierNaam,
                     LVR.Contactpersoon        AS Contactpersoon,
-                    CONT.Stad                  AS Stad,
+                    CONT.Stad                 AS Stad,
                     MGZN.AantalAanwezig       AS AantalAanwezig,
                     PRDLV.DatumLevering       AS DatumLevering,
                     PREDL.EinddatumLevering   AS EinddatumLevering
@@ -40,6 +43,8 @@ USE `magazijn-jamin`;
                     ProductEinddatumLevering PREDL ON PRCT.Id = PREDL.ProductId
                 WHERE 
                     PRCT.IsActief = 1
+                    AND (startDate IS NULL OR PREDL.EinddatumLevering >= startDate)
+                    AND (endDate IS NULL OR PREDL.EinddatumLevering <= endDate)
                 ORDER BY 
                     LeverancierNaam DESC;
             END;

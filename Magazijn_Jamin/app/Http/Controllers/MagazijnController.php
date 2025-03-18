@@ -11,10 +11,13 @@ use Exception;
 
 class MagazijnController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $magazijnInfo = DB::select('CALL spGetMagazijnInfo()');
+            $startDate = $request->input('start_date') ?? null;
+            $endDate = $request->input('end_date') ?? null;
+
+            $magazijnInfo = DB::select('CALL spGetMagazijnInfo(?, ?)', [$startDate, $endDate]);
             return view('magazijn.index', ['magazijnInfo' => $magazijnInfo]);
         } catch (Exception $e) {
             Log::error('Error in magazijn index: ' . $e->getMessage());

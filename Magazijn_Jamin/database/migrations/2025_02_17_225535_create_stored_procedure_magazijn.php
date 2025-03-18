@@ -13,14 +13,17 @@ return new class extends Migration
     {
         DB::unprepared('
             DROP PROCEDURE IF EXISTS spGetMagazijnInfo;
-            CREATE PROCEDURE spGetMagazijnInfo()
+            CREATE PROCEDURE spGetMagazijnInfo(
+                IN startDate DATE,
+                IN endDate DATE
+            )
             BEGIN
                 SELECT 
                     PRCT.id                   AS Id,
                     PRCT.Naam                 AS ProductNaam,
                     LVR.Naam                  AS LeverancierNaam,
                     LVR.Contactpersoon        AS Contactpersoon,
-                    CONT.Stad                  AS Stad,
+                    CONT.Stad                 AS Stad,
                     MGZN.AantalAanwezig       AS AantalAanwezig,
                     PRDLV.DatumLevering       AS DatumLevering,
                     PREDL.EinddatumLevering   AS EinddatumLevering
@@ -38,6 +41,8 @@ return new class extends Migration
                     ProductEinddatumLevering PREDL ON PRCT.Id = PREDL.ProductId
                 WHERE 
                     PRCT.IsActief = 1
+                    AND (startDate IS NULL OR PREDL.EinddatumLevering >= startDate)
+                    AND (endDate IS NULL OR PREDL.EinddatumLevering <= endDate)
                 ORDER BY 
                     LeverancierNaam DESC;
             END;
